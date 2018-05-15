@@ -75,9 +75,6 @@ namespace gpayments
 
                 request.AddParameter("application/json", jsonObject, ParameterType.RequestBody);
 
-                //Token t = new Token();
-                //t.Access_Token = "Yl1oeBTjfW09Ga925U4FGzBZcxcJpn";
-                //return t;
                 return ProcessResponse.Process<Token>(client.Execute(request));
             }
             catch (Exception ex)
