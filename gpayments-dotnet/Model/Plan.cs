@@ -9,7 +9,7 @@ namespace gpayments.Model
         public string Name { get; set; }
 
         [JsonProperty("amount")]
-        public double Amount { get; set; }
+        public float Amount { get; set; }
 
         [JsonProperty("currency")]
         public string Currency { get; set; }

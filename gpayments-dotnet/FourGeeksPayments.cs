@@ -75,10 +75,10 @@ namespace gpayments
 
                 request.AddParameter("application/json", jsonObject, ParameterType.RequestBody);
 
-                Token t = new Token();
-                t.Access_Token = "jfO5cKSdXLCAe8JY0iLoOfKAEvszwx";
-                return t;
-                //return ProcessResponse.Process<Token>(client.Execute(request));
+                //Token t = new Token();
+                //t.Access_Token = "Yl1oeBTjfW09Ga925U4FGzBZcxcJpn";
+                //return t;
+                return ProcessResponse.Process<Token>(client.Execute(request));
             }
             catch (Exception ex)
             {
@@ -294,8 +294,17 @@ namespace gpayments
                 var client = new RestClient(PlanCreateUrl);
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("authorization", $"bearer {this.Token.Access_Token}");
+     
+                dynamic planJSON = new JObject();
+                planJSON.name = plan.Name;
+                planJSON.amount = 10.50;// plan.Amount.ToString();
+                planJSON.trial_period_days = plan.TrialPeriodDays;
+                planJSON.interval = plan.Interval.ToString();
+                planJSON.interval_count = plan.IntervalCount.ToString();
+                planJSON.credit_card_description = plan.CreditCardDescription;
+                planJSON.currency = plan.Currency;
 
-                request.AddParameter("application/json", JsonConvert.SerializeObject(plan), ParameterType.RequestBody);
+                request.AddParameter("application/json", planJSON, ParameterType.RequestBody);
 
                 return ProcessResponse.Process(client.Execute(request), HttpStatusCode.Created);
             }
